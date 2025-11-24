@@ -1,0 +1,432 @@
+/* ===================================
+   CUSTOM ANIMATIONS & STYLES FOR TAILWIND
+   =================================== */
+
+/* Keyframes */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(3deg);
+  }
+  50% {
+    transform: translateY(-25px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(-3deg);
+  }
+}
+
+/* Animation Classes */
+.animate-slideDown {
+  animation: slideDown 0.5s ease both;
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease both;
+}
+
+.animate-fadeInLeft {
+  animation: fadeInLeft 0.8s ease both;
+}
+
+.animate-fadeInRight {
+  animation: fadeInRight 0.8s ease both;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.8s ease both;
+}
+
+.animate-slideInUp {
+  animation: slideInUp 0.8s ease both;
+}
+
+.animate-bounceIn {
+  animation: bounceIn 0.8s ease both;
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Animation Delays */
+.animation-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animation-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animation-delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animation-delay-600 {
+  animation-delay: 0.6s;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Floating Cards */
+.floating-card {
+  animation: float 6s ease-in-out infinite;
+  transition: all 0.3s ease;
+}
+
+.floating-card:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 12px 48px rgba(0, 102, 255, 0.25);
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+/* Navigation Links */
+.nav-link {
+  @apply text-gray-700 font-medium text-base cursor-pointer transition-all duration-300 relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  @apply text-blue-600;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link-cta {
+  @apply bg-gradient-to-r from-blue-600 to-cyan-400 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300;
+}
+
+.nav-link-cta:hover {
+  @apply transform -translate-y-1 shadow-lg;
+}
+
+/* Buttons */
+.btn-primary {
+  @apply bg-gradient-to-r from-blue-600 to-cyan-400 text-white px-10 py-4 text-lg font-semibold rounded-xl 
+         cursor-pointer inline-flex items-center gap-2 transition-all duration-500 shadow-md relative overflow-hidden;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.btn-primary::before {
+  content: '';
+  @apply absolute top-1/2 left-1/2 w-0 h-0 rounded-full bg-white/30;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn-primary:hover::before {
+  @apply w-96 h-96;
+}
+
+.btn-primary:hover {
+  @apply transform -translate-y-2 scale-105 shadow-2xl;
+}
+
+.btn-primary:active {
+  @apply transform -translate-y-1 scale-[1.02];
+}
+
+.btn-secondary {
+  @apply bg-white text-blue-600 border-2 border-blue-600 px-10 py-4 text-lg font-semibold rounded-xl 
+         cursor-pointer transition-all duration-500 relative overflow-hidden;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.btn-secondary::before {
+  content: '';
+  @apply absolute top-0 -left-full w-full h-full bg-blue-600;
+  transition: left 0.4s ease;
+  z-index: -1;
+}
+
+.btn-secondary:hover::before {
+  @apply left-0;
+}
+
+.btn-secondary:hover {
+  @apply text-white transform -translate-y-2 scale-105 shadow-lg;
+}
+
+/* Section Title */
+.section-title {
+  @apply text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 relative inline-block;
+}
+
+.section-title::after {
+  content: '';
+  @apply absolute -bottom-3 left-1/2 w-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full;
+  transform: translateX(-50%);
+  animation: scaleInX 0.8s ease 0.6s forwards;
+}
+
+@keyframes scaleInX {
+  to {
+    width: 60%;
+  }
+}
+
+/* Service Cards */
+.service-card {
+  @apply bg-white p-10 rounded-2xl border-2 border-blue-500/10 transition-all duration-500 relative overflow-hidden;
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+}
+
+.service-card::before {
+  content: '';
+  @apply absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-400;
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-card:hover {
+  @apply transform -translate-y-3 shadow-2xl border-blue-600;
+}
+
+.service-top-border {
+  @apply absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-cyan-400;
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.service-card:hover .service-top-border {
+  transform: scaleX(1);
+}
+
+/* Bounce easing for icons */
+.ease-bounce {
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Project Cards */
+.project-card {
+  @apply bg-white rounded-2xl overflow-hidden shadow-md transition-all duration-700;
+  animation: scaleIn 0.8s ease forwards;
+  opacity: 0;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.project-card:hover {
+  @apply transform -translate-y-6 scale-[1.02] shadow-2xl;
+}
+
+/* Project Overlay */
+.project-overlay {
+  @apply absolute inset-0 bg-gradient-to-br from-blue-600/95 to-cyan-400/95 flex items-center justify-center 
+         opacity-0 transition-all duration-500;
+  transform: scale(0.8);
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.project-card:hover .project-overlay {
+  @apply opacity-100;
+  transform: scale(1);
+}
+
+.project-link {
+  @apply text-white text-lg font-semibold flex items-center gap-2 px-6 py-3 border-2 border-white rounded-lg 
+         transition-all duration-500;
+  transform: translateY(20px);
+  opacity: 0;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.project-card:hover .project-link {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.project-link:hover {
+  @apply bg-white text-blue-600 transform -translate-y-2 scale-110 shadow-xl;
+}
+
+/* Project Tags */
+.project-tag {
+  @apply px-4 py-2 bg-slate-100 text-gray-700 rounded-md text-sm font-medium transition-all duration-300;
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+.project-card:hover .project-tag {
+  @apply bg-blue-500/10 text-blue-600 transform -translate-y-1;
+}
+
+/* Form Groups */
+.form-group {
+  @apply flex flex-col gap-2;
+  animation: fadeInUp 0.5s ease forwards;
+  opacity: 0;
+}
+
+.form-group:nth-child(1) { animation-delay: 0.5s; }
+.form-group:nth-child(2) { animation-delay: 0.6s; }
+.form-group:nth-child(3) { animation-delay: 0.7s; }
+.form-group:nth-child(4) { animation-delay: 0.8s; }
+.form-group:nth-child(5) { animation-delay: 0.9s; }
+
+.form-label {
+  @apply font-semibold text-gray-900 text-sm;
+}
+
+.form-input {
+  @apply w-full px-5 py-4 border-2 border-blue-500/20 rounded-xl text-base transition-all duration-300 
+         bg-slate-50 text-gray-900 focus:outline-none focus:border-blue-600 focus:bg-white focus:shadow-lg;
+}
+
+.form-input:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
+}
+
+.form-submit {
+  @apply w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white px-8 py-4 text-lg font-semibold 
+         rounded-xl cursor-pointer flex items-center justify-center gap-2 transition-all duration-500 mt-2;
+  animation: bounceIn 0.8s ease 1s both;
+  transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.form-submit:hover {
+  @apply transform -translate-y-2 scale-105;
+  box-shadow: 0 20px 40px rgba(0, 102, 255, 0.4);
+}
+
+.form-submit:active {
+  @apply transform -translate-y-1 scale-[1.02];
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .floating-card {
+    display: none;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    @apply w-full justify-center;
+  }
+}
