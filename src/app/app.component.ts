@@ -238,6 +238,17 @@ export class AppComponent implements OnInit {
       image: 'https://www.qualitechboston.com/wp-content/uploads/2021/02/front-Qualitech-700x780-portrait.jpg',
       link: 'https://www.qualitechboston.com/',
       tags: ['Taxes', 'Accounting', 'Analytics']
+    },
+    {
+      title: 'PIOX Laundry & Natural Cleaning',
+      description: {
+        es: 'Plataforma web para servicios de lavandería y limpieza natural, con catálogo de servicios, cotizaciones en línea y gestión de pedidos',
+        en: 'Web platform for laundry and natural cleaning services, featuring service catalog, online quotes and order management'
+      },
+      type: { es: 'Aplicación Web', en: 'Web Application' },
+      image: '/pioxlava.png',
+      link: 'https://pioxnaturalcleaning.vercel.app/#home',
+      tags: ['Laundry', 'Cleaning', 'E-commerce']
     }
   ];
 
@@ -283,6 +294,22 @@ export class AppComponent implements OnInit {
       }
     },
     {
+      icon: '🗂️',
+      title: { es: 'Digitalización de Reportes', en: 'Report Digitization' },
+      description: { 
+        es: 'Convertimos tus reportes en papel o formatos manuales a sistemas digitales accesibles, con búsqueda, almacenamiento seguro y acceso desde cualquier dispositivo', 
+        en: 'We turn your paper or manual reports into accessible digital systems, with search, secure storage and access from any device' 
+      }
+    },
+    {
+      icon: '📊',
+      title: { es: 'Creación de Reportes', en: 'Report Creation' },
+      description: { 
+        es: 'Diseñamos reportes a la medida con datos en tiempo real, gráficos y exportación a PDF y Excel para apoyar la toma de decisiones de tu negocio', 
+        en: 'We build custom reports with real-time data, charts and PDF/Excel export to support your business decision-making' 
+      }
+    },
+    {
       icon: '💌',
       title: { es: 'Invitaciones Electrónicas', en: 'Digital Invitations' },
       description: { 
@@ -306,6 +333,8 @@ export class AppComponent implements OnInit {
     { value: 'Mobile', label: { es: 'Aplicación Móvil', en: 'Mobile Application' } },
     { value: 'Web App', label: { es: 'Aplicación Web', en: 'Web Application' } },
     { value: 'Website', label: { es: 'Página Web', en: 'Website' } },
+    { value: 'Digitalizacion', label: { es: 'Digitalización de Reportes', en: 'Report Digitization' } },
+    { value: 'Reportes', label: { es: 'Creación de Reportes', en: 'Report Creation' } },
     { value: 'Invitations', label: { es: 'Invitaciones Electrónicas', en: 'Digital Invitations' } },
     { value: 'Consultoria', label: { es: 'Consultoría Informática', en: 'IT Consulting' } }
   ];
@@ -367,23 +396,25 @@ export class AppComponent implements OnInit {
     this.submitSuccess = false;
     this.submitError = false;
 
-    const formElement = event.target as HTMLFormElement;
-    const formData = new FormData(formElement);
-
     try {
-      const response = await fetch('https://formsubmit.co/ajax/mecg1994@gmail.com', {
+      // Envía a la función serverless /api/contacto (Resend)
+      const response = await fetch('/api/contacto', {
         method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre: this.formData.name,
+          email: this.formData.email,
+          telefono: this.formData.phone,
+          servicio: this.formData.service,
+          mensaje: this.formData.message,
+          lang: this.currentLang
+        })
       });
 
       if (response.ok) {
         this.submitSuccess = true;
         this.formData = { name: '', email: '', phone: '', service: '', message: '' };
-        formElement.reset();
-        
+
         // Reset success message after 5 seconds
         setTimeout(() => {
           this.submitSuccess = false;
