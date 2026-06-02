@@ -202,7 +202,7 @@ export class AppComponent implements OnInit {
         en: 'Modern web platform for tattoo and body art services with integrated booking system' 
       },
       type: { es: 'Página Web', en: 'Website' },
-      image: 'https://www.memiink.com/assets/img/fotomem.png',
+      image: 'https://www.memiink.com/assets/img/memmink.png',
       link: 'https://www.memiink.com',
       tags: ['Web Design', 'E-commerce', 'Booking System']
     },
@@ -238,18 +238,7 @@ export class AppComponent implements OnInit {
       image: 'https://www.qualitechboston.com/wp-content/uploads/2021/02/front-Qualitech-700x780-portrait.jpg',
       link: 'https://www.qualitechboston.com/',
       tags: ['Taxes', 'Accounting', 'Analytics']
-    }, 
-          {
-        title: 'PIOX Laundry & Natural Cleaning',
-        description: { 
-          es: 'Plataforma web para servicios de lavandería y limpieza natural, con catálogo de servicios, cotizaciones en línea y gestión de pedidos', 
-          en: 'Web platform for laundry and natural cleaning services, featuring service catalog, online quotes and order management' 
-        },
-        type: { es: 'Aplicación Web', en: 'Web Application' },
-        image: '/pioxlava.png',
-        link: 'https://pioxnaturalcleaning.vercel.app/#home',
-        tags: ['Laundry', 'Cleaning', 'E-commerce']
-      }
+    }
   ];
 
   services = [
