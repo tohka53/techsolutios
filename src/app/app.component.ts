@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,11 +6,17 @@ import { Component, OnInit, HostListener } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'TechSolutions';
   currentLang = 'es';
   isScrolled = false;
   mobileMenuOpen = false;
+
+  // ===== Carrusel de proyectos (4 por vista) =====
+  projectsPerPage = 4;            // cuántos proyectos por "vuelta"
+  currentProjectPage = 0;         // página actual del carrusel
+  projectAutoplayMs = 10000;      // gira solo cada 10 segundos
+  private projectAutoplayId: any = null;
 
   // Traducciones
   translations: { [key: string]: { [key: string]: string } } = {
@@ -202,7 +208,8 @@ export class AppComponent implements OnInit {
         en: 'Modern web platform for tattoo and body art services with integrated booking system' 
       },
       type: { es: 'Página Web', en: 'Website' },
-      image: 'https://www.memiink.com/assets/img/memmink.png',
+            image: '/memmink.png',
+
       link: 'https://www.memiink.com',
       tags: ['Web Design', 'E-commerce', 'Booking System']
     },
@@ -343,6 +350,70 @@ export class AppComponent implements OnInit {
     // Detectar idioma del navegador
     const browserLang = navigator.language.split('-')[0];
     this.currentLang = ['es', 'en'].includes(browserLang) ? browserLang : 'es';
+
+    // Arrancar el giro automático del carrusel de proyectos
+    this.startProjectAutoplay();
+  }
+
+  ngOnDestroy() {
+    this.stopProjectAutoplay();
+  }
+
+  // ===== Lógica del carrusel de proyectos =====
+  get totalProjectPages(): number {
+    return Math.max(1, Math.ceil(this.projects.length / this.projectsPerPage));
+  }
+
+  get projectPageIndexes(): number[] {
+    return Array.from({ length: this.totalProjectPages }, (_, i) => i);
+  }
+
+  get pagedProjects() {
+    const len = this.projects.length;
+    if (len === 0) return [];
+    const perPage = this.projectsPerPage;
+    const start = this.currentProjectPage * perPage;
+    // Siempre mostrar la misma cantidad (rotando en bucle) para que la
+    // altura no cambie al girar y la pantalla no "salte".
+    const count = Math.min(perPage, len);
+    const result = [];
+    for (let k = 0; k < count; k++) {
+      result.push(this.projects[(start + k) % len]);
+    }
+    return result;
+  }
+
+  goToProjectPage(index: number) {
+    const total = this.totalProjectPages;
+    this.currentProjectPage = ((index % total) + total) % total; // envuelve (loop)
+    this.resetProjectAutoplay();
+  }
+
+  nextProjectPage() {
+    this.goToProjectPage(this.currentProjectPage + 1);
+  }
+
+  prevProjectPage() {
+    this.goToProjectPage(this.currentProjectPage - 1);
+  }
+
+  startProjectAutoplay() {
+    this.stopProjectAutoplay();
+    if (this.totalProjectPages <= 1) return;
+    this.projectAutoplayId = setInterval(() => {
+      this.currentProjectPage = (this.currentProjectPage + 1) % this.totalProjectPages;
+    }, this.projectAutoplayMs);
+  }
+
+  stopProjectAutoplay() {
+    if (this.projectAutoplayId) {
+      clearInterval(this.projectAutoplayId);
+      this.projectAutoplayId = null;
+    }
+  }
+
+  private resetProjectAutoplay() {
+    this.startProjectAutoplay();
   }
 
   @HostListener('window:scroll', [])

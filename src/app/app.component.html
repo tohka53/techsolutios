@@ -212,10 +212,15 @@
       <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ t('projects.subtitle') }}</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
-      <div *ngFor="let project of projects; let i = index" 
+    <!-- Carrusel de proyectos (4 por vista, gira con botones o automático cada 10s) -->
+    <div class="relative"
+         (mouseenter)="stopProjectAutoplay()"
+         (mouseleave)="startProjectAutoplay()">
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10">
+      <div *ngFor="let project of pagedProjects; let i = index"
            class="project-card group"
-           [style.animation-delay]="((i + 1) * 150) + 'ms'">
+           [style.animation-delay]="((i + 1) * 120) + 'ms'">
         <div class="relative h-56 md:h-64 overflow-hidden">
           <img [src]="project.image" 
                [alt]="project.title" 
@@ -253,6 +258,34 @@
           </div>
         </div>
       </div>
+      </div>
+
+      <!-- Controles del carrusel: botones para girar + indicadores de página -->
+      <div *ngIf="totalProjectPages > 1" class="flex items-center justify-center gap-5 mt-12">
+        <button (click)="prevProjectPage()" type="button" class="carousel-btn"
+                [attr.aria-label]="currentLang === 'es' ? 'Anterior' : 'Previous'">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </button>
+
+        <div class="flex items-center gap-2.5">
+          <button *ngFor="let idx of projectPageIndexes"
+                  (click)="goToProjectPage(idx)"
+                  type="button"
+                  class="carousel-dot"
+                  [class.carousel-dot-active]="idx === currentProjectPage"
+                  [attr.aria-label]="(currentLang === 'es' ? 'Página ' : 'Page ') + (idx + 1)"></button>
+        </div>
+
+        <button (click)="nextProjectPage()" type="button" class="carousel-btn"
+                [attr.aria-label]="currentLang === 'es' ? 'Siguiente' : 'Next'">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+
     </div>
   </div>
 </section>

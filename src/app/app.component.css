@@ -444,6 +444,53 @@ html {
   color: #2563eb;
 }
 
+/* ===== PROJECT CAROUSEL CONTROLS ===== */
+.carousel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  color: #2563eb;
+  box-shadow: 0 8px 24px -8px rgba(37, 99, 235, 0.45);
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.carousel-btn:hover {
+  background-color: #2563eb;
+  color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 12px 30px -8px rgba(37, 99, 235, 0.6);
+}
+
+.carousel-btn:active {
+  transform: scale(0.96);
+}
+
+.carousel-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 9999px;
+  background-color: #cbd5e1;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-dot:hover {
+  background-color: #93c5fd;
+}
+
+.carousel-dot-active {
+  width: 2rem;
+  background-color: #2563eb;
+}
+
 /* ===== FORM STYLES ===== */
 .form-group {
   position: relative;
