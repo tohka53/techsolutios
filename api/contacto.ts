@@ -1,7 +1,5 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // --- Plantilla bilingüe de auto-respuesta (correo azul para el cliente) ---
 function autoReplyEmail(nombre: string, lang: 'es' | 'en') {
   const t = lang === 'en'
@@ -80,6 +78,17 @@ export default async function handler(req: any, res: any) {
     return res.status(405).json({ error: 'Método no permitido' });
   }
 
+  // Validar la API key ANTES de crear el cliente (evita el crash al inicializar)
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    console.error('Falta la variable de entorno RESEND_API_KEY en Vercel.');
+    return res.status(500).json({
+      error: 'Configuración del servidor incompleta: falta RESEND_API_KEY.',
+    });
+  }
+
+  const resend = new Resend(apiKey);
+
   const { nombre, email, telefono, servicio, mensaje, lang = 'es' } = req.body ?? {};
 
   if (!nombre || !email || !mensaje) {
@@ -115,7 +124,8 @@ export default async function handler(req: any, res: any) {
 
     return res.status(200).json({ ok: true });
   } catch (err) {
-    console.error(err);
+    // El error real de Resend queda en los logs de Vercel
+    console.error('Error al enviar con Resend:', err);
     return res.status(500).json({ error: 'No se pudo enviar el correo' });
   }
 }
