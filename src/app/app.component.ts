@@ -270,7 +270,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   ];
 
-  services = [
+  services: { icon: string; title: { es: string; en: string }; description: { es: string; en: string }; link?: string }[] = [
     {
       icon: '🎯',
       title: { es: 'CRM Personalizados', en: 'Custom CRM' },
