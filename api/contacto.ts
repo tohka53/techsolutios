@@ -1,4 +1,6 @@
-import { Resend } from 'resend';
+// NOTA: 'resend' se importa de forma dinámica DENTRO del handler (más abajo)
+// para que cualquier fallo al cargar el módulo no crashee la función entera
+// (FUNCTION_INVOCATION_FAILED) sino que devuelva un error legible.
 
 // --- Plantilla bilingüe de auto-respuesta (correo azul para el cliente) ---
 function autoReplyEmail(nombre: string, lang: 'es' | 'en') {
@@ -87,8 +89,6 @@ export default async function handler(req: any, res: any) {
     });
   }
 
-  const resend = new Resend(apiKey);
-
   const { nombre, email, telefono, servicio, mensaje, lang = 'es' } = req.body ?? {};
 
   if (!nombre || !email || !mensaje) {
@@ -96,6 +96,11 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
+    // Import dinámico: si 'resend' falla al cargar (p.ej. versión de Node),
+    // el error se captura aquí en vez de crashear la función.
+    const { Resend } = await import('resend');
+    const resend = new Resend(apiKey);
+
     // 1) Notificación PARA TI — con el detalle de lo que solicitó
     const notif = await resend.emails.send({
       from: 'TechSolutions <contacto@techsolutionsgt.dev>',
