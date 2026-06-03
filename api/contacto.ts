@@ -97,7 +97,7 @@ export default async function handler(req: any, res: any) {
 
   try {
     // 1) Notificación PARA TI — con el detalle de lo que solicitó
-    await resend.emails.send({
+    const notif = await resend.emails.send({
       from: 'TechSolutions <contacto@techsolutionsgt.dev>',
       to: 'mecg1994@gmail.com',
       replyTo: email,
@@ -112,9 +112,18 @@ export default async function handler(req: any, res: any) {
         <p>${mensaje}</p>`,
     });
 
+    // Resend NO lanza excepción en errores de API: devuelve { error }. Hay que revisarlo.
+    if (notif.error) {
+      console.error('Resend rechazó la notificación:', notif.error);
+      return res.status(500).json({
+        error: 'No se pudo enviar el correo',
+        detalle: notif.error,
+      });
+    }
+
     // 2) Auto-respuesta PARA EL CLIENTE — el correo azul
     const auto = autoReplyEmail(nombre, lang === 'en' ? 'en' : 'es');
-    await resend.emails.send({
+    const reply = await resend.emails.send({
       from: 'TechSolutions <contacto@techsolutionsgt.dev>',
       to: email,
       replyTo: 'mecg1994@gmail.com',
@@ -122,10 +131,21 @@ export default async function handler(req: any, res: any) {
       html: auto.html,
     });
 
+    if (reply.error) {
+      console.error('Resend rechazó la auto-respuesta:', reply.error);
+      return res.status(500).json({
+        error: 'No se pudo enviar la auto-respuesta',
+        detalle: reply.error,
+      });
+    }
+
     return res.status(200).json({ ok: true });
-  } catch (err) {
+  } catch (err: any) {
     // El error real de Resend queda en los logs de Vercel
     console.error('Error al enviar con Resend:', err);
-    return res.status(500).json({ error: 'No se pudo enviar el correo' });
+    return res.status(500).json({
+      error: 'No se pudo enviar el correo',
+      detalle: err?.message ?? String(err),
+    });
   }
 }
