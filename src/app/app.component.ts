@@ -256,6 +256,17 @@ export class AppComponent implements OnInit, OnDestroy {
       image: '/pioxlava.png',
       link: 'https://pioxnaturalcleaning.vercel.app/#home',
       tags: ['Laundry', 'Cleaning', 'E-commerce']
+    },
+    {
+      title: 'InvitaEventGT',
+      description: {
+        es: 'Plataforma de invitaciones digitales para bodas, cumpleaños, XV años y todo tipo de eventos, con RSVP en línea, diseños elegantes e interactivos listos para compartir por WhatsApp',
+        en: 'Digital invitations platform for weddings, birthdays, sweet sixteens and all kinds of events, with online RSVP and elegant interactive designs ready to share on WhatsApp'
+      },
+      type: { es: 'Invitaciones Digitales', en: 'Digital Invitations' },
+      image: '/invitagt.png',
+      link: 'https://invitaeventgt.vercel.app/',
+      tags: ['Invitations', 'RSVP', 'Events']
     }
   ];
 
@@ -319,10 +330,11 @@ export class AppComponent implements OnInit, OnDestroy {
     {
       icon: '💌',
       title: { es: 'Invitaciones Electrónicas', en: 'Digital Invitations' },
-      description: { 
-        es: 'Invitaciones digitales interactivas para bodas, cumpleaños, eventos corporativos y celebraciones', 
-        en: 'Interactive digital invitations for weddings, birthdays, corporate events and celebrations' 
-      }
+      description: {
+        es: 'Invitaciones digitales interactivas para bodas, cumpleaños, eventos corporativos y celebraciones',
+        en: 'Interactive digital invitations for weddings, birthdays, corporate events and celebrations'
+      },
+      link: 'https://invitaeventgt.vercel.app/'
     },
     {
       icon: '🔍',
