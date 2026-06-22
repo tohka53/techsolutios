@@ -12,6 +12,11 @@ export class AppComponent implements OnInit, OnDestroy {
   isScrolled = false;
   mobileMenuOpen = false;
 
+  // Año actual para el copyright
+  get currentYear(): number {
+    return new Date().getFullYear();
+  }
+
   // ===== Carrusel de proyectos (4 por vista) =====
   projectsPerPage = 4;            // cuántos proyectos por "vuelta"
   currentProjectPage = 0;         // página actual del carrusel
