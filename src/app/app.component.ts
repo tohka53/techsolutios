@@ -184,23 +184,23 @@ export class AppComponent implements OnInit, OnDestroy {
   // Estadísticas
   stats = [
     {
-      number: '50+',
+      number: '10+',
       label: { es: 'Proyectos Completados', en: 'Completed Projects' },
       icon: '🚀'
     },
     {
-      number: '98%',
+      number: '100%',
       label: { es: 'Clientes Satisfechos', en: 'Satisfied Clients' },
       icon: '⭐'
     },
     {
-      number: '24h',
+      number: '<6h',
       label: { es: 'Tiempo de Respuesta', en: 'Response Time' },
       icon: '⚡'
     },
     {
-      number: '5+',
-      label: { es: 'Años de Experiencia', en: 'Years of Experience' },
+      number: '10+',
+      label: { es: 'Años de experiencia profesional', en: 'Years of professional experience' },
       icon: '🏆'
     }
   ];
